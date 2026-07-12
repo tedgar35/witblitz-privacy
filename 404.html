@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>WitBlitz</title>
+<style>
+  :root {
+    --bg: #1A1A2E;
+    --card: #16213E;
+    --accent: #E94560;
+    --text: #FFFFFF;
+    --muted: #B8BCC8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { width: 100%; max-width: 420px; text-align: center; }
+  .wordmark { font-size: 34px; font-weight: 800; letter-spacing: 0.5px; margin: 0 0 6px; }
+  .wordmark .spark { color: var(--accent); }
+  .tag { color: var(--muted); font-size: 15px; margin: 0 0 28px; }
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 28px 22px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  }
+  .invited { font-size: 19px; font-weight: 700; margin: 0 0 14px; }
+  .code {
+    display: inline-block;
+    font-family: "SF Mono", ui-monospace, Menlo, monospace;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--accent);
+    background: rgba(233, 69, 96, 0.12);
+    border: 1px solid rgba(233, 69, 96, 0.4);
+    border-radius: 12px;
+    padding: 10px 18px;
+    margin: 0 0 24px;
+    user-select: all;
+    -webkit-user-select: all;
+  }
+  .btn {
+    display: block;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 15px 20px;
+    border-radius: 14px;
+    margin: 0 0 16px;
+  }
+  .hint { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0; }
+  .nf { color: var(--muted); font-size: 16px; }
+  .nf a { color: var(--accent); }
+</style>
+</head>
+<body>
+  <div class="wrap" id="app"></div>
+  <script>
+    (function () {
+      var appStore = 'https://apps.apple.com/app/id6761444213';
+      var m = (location.pathname || '').match(/^\/join\/([^\/?#]+)/i);
+      var el = document.getElementById('app');
+      var wordmark = '<h1 class="wordmark">Wit<span class="spark">Blitz</span></h1>';
+      if (m && m[1]) {
+        var code = decodeURIComponent(m[1]).toUpperCase().replace(/[^A-Z0-9]/g, '');
+        el.innerHTML =
+          wordmark +
+          '<p class="tag">Four quick daily games with friends</p>' +
+          '<div class="card">' +
+            '<p class="invited">You’re invited — code:</p>' +
+            '<div class="code">' + code + '</div>' +
+            '<a class="btn" href="' + appStore + '">Get WitBlitz</a>' +
+            '<p class="hint">Have the app? Go back to your text and tap the link again.</p>' +
+          '</div>';
+        document.title = 'Join on WitBlitz — ' + code;
+      } else {
+        el.innerHTML =
+          wordmark +
+          '<p class="nf">Page not found. <a href="/">Go home</a></p>';
+      }
+    })();
+  </script>
+</body>
+</html>
