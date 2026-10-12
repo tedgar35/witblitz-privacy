@@ -3,8 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>WitBlitz — Four quick daily games with friends</title>
-<meta name="description" content="WitBlitz — four quick daily games: trivia, words, and puzzles, with friends. Coming soon to the App Store." />
+<title>WitBlitz: four quick daily games with friends</title>
+<meta name="description" content="WitBlitz: four quick daily games (trivia, words and puzzles) with friends. Free on the iPhone App Store and in any browser." />
+<meta name="apple-itunes-app" content="app-id=6761444213" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://witblitz.app/" />
+<meta property="og:title" content="WitBlitz: four quick daily games with friends" />
+<meta property="og:description" content="Trivia, words and puzzles, with friends. Free on the iPhone App Store and in any browser." />
 <style>
   :root {
     --bg: #1A1A2E;
@@ -46,17 +51,34 @@
   }
   .game .emoji { font-size: 32px; display: block; margin-bottom: 8px; }
   .game .name { font-size: 15px; font-weight: 700; }
-  .soon {
-    display: inline-block;
-    color: var(--accent);
-    background: rgba(233, 69, 96, 0.12);
-    border: 1px solid rgba(233, 69, 96, 0.4);
-    border-radius: 999px;
-    padding: 10px 20px;
-    font-size: 15px;
-    font-weight: 700;
-    margin: 0 0 40px;
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 0 0 14px;
   }
+  .store { display: inline-block; line-height: 0; padding: 14px; margin: -14px; }
+  .store img { height: 54px; width: auto; display: block; }
+  .play {
+    display: inline-block;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 12px;
+    padding: 0 22px;
+    height: 54px;
+    line-height: 54px;
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .play:focus-visible, .store:focus-visible, footer a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+  }
+  .note { color: var(--muted); font-size: 15px; margin: 0 0 40px; }
   footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); padding-top: 24px; }
   footer a { color: var(--accent); text-decoration: none; }
   @media (max-width: 360px) {
@@ -67,7 +89,7 @@
 <body>
   <main class="wrap">
     <h1 class="wordmark">Wit<span class="spark">Blitz</span></h1>
-    <p class="tag">Four quick daily games — trivia, words, and puzzles, with friends.</p>
+    <p class="tag">Four quick daily games: trivia, words and puzzles, with friends.</p>
 
     <section class="games" aria-label="The four daily games">
       <div class="game"><span class="emoji">🧠</span><span class="name">Trivia Bolt</span></div>
@@ -76,13 +98,13 @@
       <div class="game"><span class="emoji">🔢</span><span class="name">Mini Sudoku</span></div>
     </section>
 
-    <div class="soon">Coming soon to the App Store</div>
-
-    <!-- RELEASE DAY: delete the coming-soon button, uncomment this.
-    <a href="https://apps.apple.com/app/id6761444213" aria-label="Download WitBlitz on the App Store" style="display:inline-block;margin:0 0 40px;">
-      <img src="/assets/download-on-the-app-store.svg" alt="Download on the App Store" style="height:54px;" />
-    </a>
-    -->
+    <div class="cta">
+      <a class="store" href="https://apps.apple.com/app/id6761444213" aria-label="Download WitBlitz on the App Store">
+        <img src="/assets/download-on-the-app-store.svg" alt="Download on the App Store" width="162" height="54" />
+      </a>
+      <a class="play" href="https://play.witblitz.app/">Play free in your browser</a>
+    </div>
+    <p class="note">Free on iPhone and in any browser.</p>
 
     <footer>
       <a href="/privacy/">Privacy Policy</a>

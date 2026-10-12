@@ -36,7 +36,8 @@
     padding: 28px 22px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
   }
-  .invited { font-size: 19px; font-weight: 700; margin: 0 0 14px; }
+  .invited { font-size: 19px; font-weight: 700; margin: 0 0 6px; }
+  .codelabel { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
   .code {
     display: inline-block;
     font-family: "SF Mono", ui-monospace, Menlo, monospace;
@@ -48,9 +49,21 @@
     border: 1px solid rgba(233, 69, 96, 0.4);
     border-radius: 12px;
     padding: 10px 18px;
-    margin: 0 0 24px;
+    margin: 0 0 8px;
     user-select: all;
     -webkit-user-select: all;
+  }
+  .copy {
+    display: block;
+    margin: 0 auto 22px;
+    background: none;
+    border: 0;
+    color: var(--muted);
+    font: inherit;
+    font-size: 14px;
+    text-decoration: underline;
+    padding: 10px 12px;
+    cursor: pointer;
   }
   .btn {
     display: block;
@@ -63,7 +76,9 @@
     border-radius: 14px;
     margin: 0 0 16px;
   }
-  .hint { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0; }
+  .hint { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0 0 14px; }
+  .alt { display: inline-block; color: var(--text); font-size: 15px; font-weight: 600; padding: 10px 12px; }
+  .btn:focus-visible, .alt:focus-visible, .copy:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
   .nf { color: var(--muted); font-size: 16px; }
   .nf a { color: var(--accent); }
 </style>
@@ -73,26 +88,96 @@
   <script>
     (function () {
       var appStore = 'https://apps.apple.com/app/id6761444213';
-      var m = (location.pathname || '').match(/^\/join\/([^\/?#]+)/i);
-      var el = document.getElementById('app');
-      var wordmark = '<h1 class="wordmark">Wit<span class="spark">Blitz</span></h1>';
-      if (m && m[1]) {
-        var code = decodeURIComponent(m[1]).toUpperCase().replace(/[^A-Z0-9]/g, '');
-        el.innerHTML =
-          wordmark +
-          '<p class="tag">Four quick daily games with friends</p>' +
-          '<div class="card">' +
-            '<p class="invited">You’re invited — code:</p>' +
-            '<div class="code">' + code + '</div>' +
-            '<a class="btn" href="' + appStore + '">Get WitBlitz</a>' +
-            '<p class="hint">Have the app? Go back to your text and tap the link again.</p>' +
-          '</div>';
-        document.title = 'Join on WitBlitz — ' + code;
-      } else {
-        el.innerHTML =
-          wordmark +
-          '<p class="nf">Page not found. <a href="/">Go home</a></p>';
+      var webApp = 'https://play.witblitz.app';
+      var app = document.getElementById('app');
+
+      function el(tag, cls, text) {
+        var n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text != null) n.textContent = text;
+        return n;
       }
+      function link(cls, text, href) {
+        var a = el('a', cls, text);
+        a.href = href;
+        return a;
+      }
+      function wordmark() {
+        var h = el('h1', 'wordmark', 'Wit');
+        h.appendChild(el('span', 'spark', 'Blitz'));
+        return h;
+      }
+      // An iPhone, an iPod touch, or an iPad (iPadOS reports itself as a Mac
+      // with a touch screen).
+      function isAppleTouchDevice() {
+        var ua = navigator.userAgent || '';
+        if (/iPhone|iPad|iPod/i.test(ua)) return true;
+        return /Macintosh/i.test(ua) && (navigator.maxTouchPoints || 0) > 1;
+      }
+
+      app.appendChild(wordmark());
+
+      var m = (location.pathname || '').match(/^\/join\/([^\/?#]+)/i);
+      var code = '';
+      if (m && m[1]) {
+        try {
+          code = decodeURIComponent(m[1]);
+        } catch (e) {
+          code = '';
+        }
+        // Stray punctuation from a pasted message is dropped. A real code is
+        // six letters and digits; anything far from that is not an invite.
+        code = code.toUpperCase().replace(/[^A-Z0-9]/g, '');
+        if (code.length < 4 || code.length > 12) code = '';
+      }
+
+      if (!code) {
+        var nf = el('p', 'nf', 'Page not found. ');
+        nf.appendChild(link('', 'Go home', '/'));
+        app.appendChild(nf);
+        return;
+      }
+
+      var playUrl = webApp + '/join/' + encodeURIComponent(code);
+      var onApple = isAppleTouchDevice();
+
+      app.appendChild(el('p', 'tag', 'Four quick daily games with friends'));
+
+      var card = el('div', 'card');
+      card.appendChild(el('p', 'invited', 'You’re invited to a WitBlitz group'));
+      card.appendChild(el('p', 'codelabel', 'Your code'));
+      card.appendChild(el('div', 'code', code));
+
+      var copy = el('button', 'copy', 'Copy code');
+      copy.type = 'button';
+      copy.addEventListener('click', function () {
+        function done() {
+          copy.textContent = 'Copied';
+          setTimeout(function () { copy.textContent = 'Copy code'; }, 2000);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(done, function () {});
+        }
+      });
+      // Shown only where copying can work; the code stays selectable either way.
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        card.appendChild(copy);
+      } else {
+        card.querySelector('.code').style.marginBottom = '24px';
+      }
+
+      if (onApple) {
+        card.appendChild(link('btn', 'Get WitBlitz on the App Store', appStore));
+        card.appendChild(el('p', 'hint', 'Already have the app? Go back to your message and tap the link again.'));
+        card.appendChild(link('alt', 'Or play free in your browser', playUrl));
+      } else {
+        card.appendChild(link('btn', 'Play free in your browser', playUrl));
+        card.appendChild(el('p', 'hint', 'Create a free account and you’ll join the group with this code.'));
+        card.appendChild(link('alt', 'On an iPhone? Get the app', appStore));
+      }
+
+      app.appendChild(card);
+      document.title = 'Join a WitBlitz group: ' + code;
     })();
   </script>
 </body>
