@@ -4,83 +4,127 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="robots" content="noindex" />
+<meta name="theme-color" content="#F5F5FA" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0D0D1A" media="(prefers-color-scheme: dark)" />
 <title>WitBlitz</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 <style>
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("/assets/fonts/SpaceGrotesk-Regular.woff2") format("woff2");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("/assets/fonts/SpaceGrotesk-Medium.woff2") format("woff2");
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("/assets/fonts/SpaceGrotesk-Bold.woff2") format("woff2");
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  /* The app's own tokens, as on the home page. */
   :root {
-    --bg: #1A1A2E;
-    --card: #16213E;
-    --accent: #E94560;
-    --text: #FFFFFF;
-    --muted: #B8BCC8;
+    --paper: #F5F5FA;
+    --surface: #FFFFFF;
+    --ink: #1A1A2E;
+    --muted: #6B6B8D;
+    --line: #E0E0EB;
+    --glow: #00BCD4;
+    --glow-text: #00838F;
+    --glow-tint: rgba(0, 188, 212, 0.10);
+    --coral: #E94560;
+    --btn-bg: #1A1A2E;
+    --btn-text: #FFFFFF;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0D0D1A;
+      --surface: #1A1A2E;
+      --ink: #F5F5FA;
+      --muted: #9B9BB5;
+      --line: #2D2D45;
+      --glow-text: #00BCD4;
+      --glow-tint: rgba(0, 188, 212, 0.14);
+      --coral: #FF6B81;
+      --btn-bg: #F5F5FA;
+      --btn-text: #0D0D1A;
+    }
   }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   html, body { margin: 0; padding: 0; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.45;
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 24px 20px;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { width: 100%; max-width: 420px; text-align: center; }
-  .wordmark { font-size: 34px; font-weight: 800; letter-spacing: 0.5px; margin: 0 0 6px; }
-  .wordmark .spark { color: var(--accent); }
-  .tag { color: var(--muted); font-size: 15px; margin: 0 0 28px; }
+  :focus-visible { outline: 3px solid var(--glow); outline-offset: 3px; border-radius: 6px; }
+  .wrap { width: 100%; max-width: 420px; }
+  .top { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; }
+  .top img { width: 40px; height: 40px; border-radius: 10px; display: block; }
+  .top .name { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+  .line { height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--glow), var(--coral)); margin: 0 0 28px; }
   .card {
-    background: var(--card);
+    background: var(--surface);
+    border: 1px solid var(--line);
     border-radius: 20px;
-    padding: 28px 22px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    padding: 26px 22px 22px;
   }
-  .invited { font-size: 19px; font-weight: 700; margin: 0 0 6px; }
-  .codelabel { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
+  .invited { font-size: 28px; line-height: 1.08; letter-spacing: -0.03em; font-weight: 700; margin: 0 0 18px; }
+  .codelabel { color: var(--muted); font-size: 15px; font-weight: 500; margin: 0 0 8px; }
+  .coderow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 24px; }
   .code {
-    display: inline-block;
-    font-family: "SF Mono", ui-monospace, Menlo, monospace;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 700;
-    letter-spacing: 4px;
-    color: var(--accent);
-    background: rgba(233, 69, 96, 0.12);
-    border: 1px solid rgba(233, 69, 96, 0.4);
+    letter-spacing: 0.16em;
+    color: var(--glow-text);
+    background: var(--glow-tint);
+    border: 1.5px solid var(--glow);
     border-radius: 12px;
-    padding: 10px 18px;
-    margin: 0 0 8px;
+    padding: 8px 12px 8px 16px;
     user-select: all;
     -webkit-user-select: all;
   }
   .copy {
-    display: block;
-    margin: 0 auto 22px;
     background: none;
     border: 0;
-    color: var(--muted);
+    color: var(--ink);
     font: inherit;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 500;
     text-decoration: underline;
-    padding: 10px 12px;
+    text-underline-offset: 3px;
+    padding: 12px 8px;
     cursor: pointer;
   }
   .btn {
     display: block;
-    background: var(--accent);
-    color: #fff;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    text-align: center;
     text-decoration: none;
     font-size: 17px;
     font-weight: 700;
-    padding: 15px 20px;
-    border-radius: 14px;
-    margin: 0 0 16px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin: 0 0 14px;
   }
-  .hint { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0 0 14px; }
-  .alt { display: inline-block; color: var(--text); font-size: 15px; font-weight: 600; padding: 10px 12px; }
-  .btn:focus-visible, .alt:focus-visible, .copy:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-  .nf { color: var(--muted); font-size: 16px; }
-  .nf a { color: var(--accent); }
+  .hint { color: var(--muted); font-size: 15px; margin: 0 0 10px; }
+  .alt { display: inline-block; color: var(--ink); font-size: 16px; font-weight: 700; padding: 10px 0; text-underline-offset: 3px; }
+  .nf { color: var(--muted); font-size: 17px; margin: 0; }
+  .nf a { color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
 </style>
 </head>
 <body>
@@ -102,10 +146,16 @@
         a.href = href;
         return a;
       }
-      function wordmark() {
-        var h = el('h1', 'wordmark', 'Wit');
-        h.appendChild(el('span', 'spark', 'Blitz'));
-        return h;
+      function header() {
+        var top = el('div', 'top');
+        var img = document.createElement('img');
+        img.src = '/assets/icon-192.png';
+        img.alt = '';
+        img.width = 40;
+        img.height = 40;
+        top.appendChild(img);
+        top.appendChild(el('p', 'name', 'WitBlitz'));
+        return top;
       }
       // An iPhone, an iPod touch, or an iPad (iPadOS reports itself as a Mac
       // with a touch screen).
@@ -115,7 +165,8 @@
         return /Macintosh/i.test(ua) && (navigator.maxTouchPoints || 0) > 1;
       }
 
-      app.appendChild(wordmark());
+      app.appendChild(header());
+      app.appendChild(el('div', 'line'));
 
       var m = (location.pathname || '').match(/^\/join\/([^\/?#]+)/i);
       var code = '';
@@ -133,7 +184,7 @@
 
       if (!code) {
         var nf = el('p', 'nf', 'Page not found. ');
-        nf.appendChild(link('', 'Go home', '/'));
+        nf.appendChild(link('', 'Go to the home page', '/'));
         app.appendChild(nf);
         return;
       }
@@ -141,30 +192,25 @@
       var playUrl = webApp + '/join/' + encodeURIComponent(code);
       var onApple = isAppleTouchDevice();
 
-      app.appendChild(el('p', 'tag', 'Four quick daily games with friends'));
-
       var card = el('div', 'card');
-      card.appendChild(el('p', 'invited', 'You’re invited to a WitBlitz group'));
+      card.appendChild(el('h1', 'invited', 'You’re invited to a WitBlitz group.'));
       card.appendChild(el('p', 'codelabel', 'Your code'));
-      card.appendChild(el('div', 'code', code));
 
-      var copy = el('button', 'copy', 'Copy code');
-      copy.type = 'button';
-      copy.addEventListener('click', function () {
-        function done() {
-          copy.textContent = 'Copied';
-          setTimeout(function () { copy.textContent = 'Copy code'; }, 2000);
-        }
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(code).then(done, function () {});
-        }
-      });
+      var row = el('div', 'coderow');
+      row.appendChild(el('span', 'code', code));
       // Shown only where copying can work; the code stays selectable either way.
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        card.appendChild(copy);
-      } else {
-        card.querySelector('.code').style.marginBottom = '24px';
+        var copy = el('button', 'copy', 'Copy code');
+        copy.type = 'button';
+        copy.addEventListener('click', function () {
+          navigator.clipboard.writeText(code).then(function () {
+            copy.textContent = 'Copied';
+            setTimeout(function () { copy.textContent = 'Copy code'; }, 2000);
+          }, function () {});
+        });
+        row.appendChild(copy);
       }
+      card.appendChild(row);
 
       if (onApple) {
         card.appendChild(link('btn', 'Get WitBlitz on the App Store', appStore));
