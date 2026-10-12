@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>WitBlitz: four quick daily games with friends</title>
 <meta name="description" content="WitBlitz: four quick daily games (trivia, words and puzzles) with friends. Free on the iPhone App Store and in any browser." />
-<meta name="apple-itunes-app" content="app-id=6761444213" />
 <meta name="theme-color" content="#F5F5FA" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0D0D1A" media="(prefers-color-scheme: dark)" />
 <meta property="og:type" content="website" />
@@ -20,6 +19,7 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 <link rel="preload" href="/assets/fonts/SpaceGrotesk-Bold.woff2" as="font" type="font/woff2" crossorigin />
 <style>
+
   @font-face {
     font-family: "Space Grotesk";
     src: url("/assets/fonts/SpaceGrotesk-Regular.woff2") format("woff2");
@@ -59,6 +59,9 @@
     --on-fill: #FFFFFF;
     --btn-bg: #1A1A2E;
     --btn-text: #FFFFFF;
+    --band: #1A1A2E;
+    --band-card: #252540;
+    --band-line: #36365C;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -97,16 +100,15 @@
   a { color: inherit; }
   :focus-visible { outline: 3px solid var(--glow); outline-offset: 3px; border-radius: 6px; }
 
-  .page { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+  .page { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 
   /* Header: the icon, the name, and the day line. */
-  .top { display: flex; align-items: center; gap: 12px; padding: 20px 0 14px; }
-  .top img { width: 40px; height: 40px; border-radius: 10px; display: block; }
-  .top .name { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+  .top { display: flex; align-items: center; gap: 10px; padding: 16px 4px 12px; }
+  .top .name { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
   .top .left { margin-left: auto; color: var(--muted); font-size: 14px; font-weight: 500; white-space: nowrap; }
 
   /* The app's brand line, doubling as today's clock: it fills as the day goes. */
-  .day { height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .day { height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; margin: 0 4px; }
   .day i {
     display: block; height: 100%; width: 100%;
     background: linear-gradient(90deg, var(--glow), var(--coral));
@@ -119,89 +121,107 @@
     @keyframes fill { from { transform: scaleX(0); } }
   }
 
-  /* Hero. */
-  .hero { display: grid; gap: 40px; padding: 44px 0 56px; }
+  /* Hero: the sky of the app's icon, with a question you can answer. */
+  .hero {
+    margin-top: 16px;
+    border-radius: 28px;
+    padding: 28px 20px 20px;
+    color: #FFFFFF;
+    background: linear-gradient(165deg, #1259C3 0%, #0A6FDB 52%, #0394FD 100%);
+    display: grid; gap: 28px;
+  }
+  .hero .icon { width: 84px; height: 84px; border-radius: 20px; display: block; box-shadow: 0 12px 28px rgba(4, 22, 66, 0.38); }
   h1 {
+    margin-top: 22px;
     font-size: clamp(40px, 11.5vw, 60px);
     line-height: 0.98;
     letter-spacing: -0.035em;
     font-weight: 700;
   }
   h1 span { display: block; }
-  .lede { margin-top: 20px; max-width: 30em; color: var(--muted); font-size: clamp(18px, 2.2vw, 21px); }
-  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 28px; }
+  .lede { margin-top: 16px; max-width: 30em; font-size: clamp(18px, 2.2vw, 21px); }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 24px; }
   .store { display: inline-block; line-height: 0; border-radius: 10px; }
   .store img { height: 54px; width: auto; display: block; }
   .play {
     display: inline-flex; align-items: center; justify-content: center;
-    height: 54px; padding: 0 24px;
-    background: var(--btn-bg); color: var(--btn-text);
+    height: 54px; padding: 0 22px;
+    background: #FED800; color: #1A1A2E;
     border-radius: 12px; text-decoration: none;
     font-size: 17px; font-weight: 700; white-space: nowrap;
   }
-  .free { margin-top: 14px; color: var(--muted); font-size: 15px; }
+  .free { margin-top: 14px; font-size: 15px; }
+  .hero :focus-visible { outline-color: #FFFFFF; }
 
-  /* The four games, drawn the way the app draws them: a white card with a
-     thin edge in the game's own color. */
-  .board { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; align-content: start; }
-  .game {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-top: 4px solid var(--edge);
-    border-radius: 18px;
-    padding: 18px;
-    min-width: 0;
+  /* Trivia Bolt: one real question, on the clock. */
+  .try {
+    background: var(--surface); color: var(--ink);
+    border-radius: 20px; padding: 18px;
+    box-shadow: 0 16px 36px rgba(4, 22, 66, 0.30);
+    align-self: center; width: 100%;
   }
-  .game h3 { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
-  .game .how { color: var(--muted); font-size: 15px; line-height: 1.35; margin-top: 2px; }
-  .game .demo { margin-top: 16px; }
-  .trivia { --edge: var(--trivia); grid-column: 1 / -1; }
-  .letters { --edge: var(--letters); }
-  .ladder { --edge: var(--ladder); }
-  .sudoku { --edge: var(--sudoku); grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
-  @media (max-width: 560px) { .sudoku { grid-template-columns: 1fr; } }
-
-  /* Trivia Bolt: one real question to try. */
-  .q { font-size: 20px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
-  .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .try .label { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .try h3 { font-size: 17px; font-weight: 700; color: var(--trivia); }
+  .try .secs { font-size: 15px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .clock { height: 6px; border-radius: 6px; background: var(--sunken); overflow: hidden; margin: 10px 0 16px; }
+  .clock i { display: block; height: 100%; background: var(--trivia); border-radius: 6px; transform-origin: left center; }
+  .clock i.go { animation: drain 15s linear forwards; }
+  .clock i.stop { animation-play-state: paused; }
+  @keyframes drain { to { transform: scaleX(0); } }
+  .q { font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; }
+  .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
   .answers button {
-    font: inherit; font-size: 17px; font-weight: 500; color: var(--ink);
+    font: inherit; font-size: 18px; font-weight: 500; color: var(--ink);
     display: flex; align-items: center; gap: 10px;
     background: var(--sunken); border: 1.5px solid var(--line); border-radius: 12px;
-    min-height: 52px; padding: 8px 14px; text-align: left; cursor: pointer;
+    min-height: 54px; padding: 8px 14px; text-align: left; cursor: pointer;
   }
   .answers button b { color: var(--muted); font-weight: 700; }
   .answers button:disabled { cursor: default; color: var(--ink); opacity: 1; }
   .answers button.right { background: var(--letters); border-color: var(--letters); color: var(--on-fill); }
   .answers button.right b { color: var(--on-fill); }
   .answers button.wrong { border-color: var(--muted); text-decoration: line-through; color: var(--muted); }
-  .result { margin-top: 12px; font-size: 16px; min-height: 1.5em; }
+  .result { margin-top: 12px; font-size: 16px; }
+  .result:empty { display: none; }
 
-  /* Letter Blitz: the app's own tile colors. */
-  .rows { display: grid; gap: 6px; }
-  .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  /* The other three games: what you do in each, shown beside the words. */
+  .games { display: grid; gap: 12px; padding: 28px 0 8px; }
+  .games > h2 { padding: 0 4px 6px; }
+  .game {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--edge);
+    border-radius: 18px;
+    padding: 16px 16px 16px 15px;
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center;
+  }
+  .game h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  .game .how { color: var(--muted); font-size: 15px; line-height: 1.35; margin-top: 4px; }
+  .letters { --edge: var(--letters); }
+  .ladder { --edge: var(--ladder); }
+  .sudoku { --edge: var(--sudoku); }
+
+  .rows { display: grid; gap: 4px; }
+  .tiles { display: grid; grid-template-columns: repeat(5, 26px); gap: 4px; }
   .tiles span {
-    aspect-ratio: 1; display: grid; place-items: center;
-    border-radius: 8px; font-weight: 700; font-size: clamp(15px, 4.2vw, 22px);
-    color: var(--on-fill);
+    height: 26px; display: grid; place-items: center;
+    border-radius: 7px; font-weight: 700; font-size: 15px; color: var(--on-fill);
   }
   .tiles .ok { background: var(--letters); }
   .tiles .near { background: var(--present); }
   .tiles .no { background: var(--absent); color: var(--ink); }
 
-  /* Word Ladder. */
-  .rungs { display: grid; gap: 6px; justify-items: start; }
+  .rungs { display: grid; gap: 4px; justify-items: stretch; width: 146px; }
   .rungs span {
-    font-weight: 700; font-size: clamp(17px, 4.6vw, 22px); letter-spacing: 0.14em;
-    background: var(--sunken); border-radius: 8px; padding: 4px 10px 4px 13px;
+    font-weight: 700; font-size: 17px; letter-spacing: 0.18em; text-align: center;
+    background: var(--sunken); border-radius: 7px; padding: 1px 0 1px 0.18em;
   }
   .rungs em { font-style: normal; color: var(--ladder); }
 
-  /* Mini Sudoku. */
   .grid {
-    display: grid; grid-template-columns: repeat(6, 30px); grid-auto-rows: 30px; width: max-content;
-    border: 2px solid var(--ink); border-radius: 8px; overflow: hidden;
-    font-weight: 700; font-size: 16px;
+    display: grid; grid-template-columns: repeat(6, 24px); grid-auto-rows: 24px; width: max-content;
+    border: 2px solid var(--ink); border-radius: 7px; overflow: hidden;
+    font-weight: 700; font-size: 14px;
   }
   .grid span { display: grid; place-items: center; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .grid span:nth-child(6n) { border-right: 0; }
@@ -211,44 +231,62 @@
   .grid .me { color: var(--sudoku); }
   .grid .sel { box-shadow: inset 0 0 0 3px var(--glow); }
 
-  /* Friends. */
-  .friends { display: grid; gap: 32px; padding: 56px 0; border-top: 1px solid var(--line); }
   h2 { font-size: clamp(30px, 6vw, 46px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 700; }
-  .friends p { margin-top: 16px; color: var(--muted); max-width: 32em; }
-  .standings { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 8px 18px; max-width: 420px; width: 100%; }
+
+  /* Friends: the dark band. */
+  .friends {
+    margin: 20px 0 0;
+    background: var(--band); color: #F5F5FA;
+    border-radius: 28px; padding: 32px 20px 24px;
+    display: grid; gap: 26px;
+  }
+  .friends p { margin-top: 14px; color: #C9C9DD; max-width: 32em; }
+  .standings { background: var(--band-card); border-radius: 18px; padding: 6px 18px; max-width: 440px; width: 100%; }
   .standings .title { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0 8px; font-weight: 700; }
-  .standings .title small { color: var(--muted); font-size: 14px; font-weight: 500; }
+  .standings .title small { color: #C9C9DD; font-size: 14px; font-weight: 500; }
   .standings ol { list-style: none; margin: 0; padding: 0; }
-  .standings li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); font-weight: 500; }
+  .standings li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--band-line); font-weight: 500; }
   .standings .medal { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; font-weight: 700; color: #1A1A2E; }
   .standings .pts { margin-left: auto; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .standings .you { color: var(--glow-text); }
-  .streak { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; color: var(--ink); }
-  .streak svg { width: 16px; height: 18px; }
+  .standings .you { color: #5FE3F2; }
+  .streak { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 8px 14px; border: 1px solid var(--band-line); border-radius: 999px; font-size: 15px; font-weight: 700; white-space: nowrap; }
+  .streak svg { width: 16px; height: 18px; flex: none; }
+  .friends .cta { margin-top: 0; }
+  .friends :focus-visible { outline-color: #FFFFFF; }
 
-  footer { border-top: 1px solid var(--line); padding: 28px 0 44px; color: var(--muted); font-size: 15px; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  footer { padding: 24px 4px 40px; color: var(--muted); font-size: 15px; display: flex; flex-wrap: wrap; gap: 8px 22px; }
   footer a { text-underline-offset: 3px; }
-  footer .by { margin-left: auto; }
 
+  @media (min-width: 640px) {
+    .games { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .games > h2 { grid-column: 1 / -1; }
+    .game { grid-template-columns: 1fr; align-items: start; align-content: space-between; gap: 22px; border-left-width: 1px; border-top: 5px solid var(--edge); padding: 18px; }
+    .tiles { grid-template-columns: repeat(5, 36px); gap: 5px; }
+    .rows { gap: 5px; }
+    .tiles span { height: 36px; font-size: 19px; border-radius: 9px; }
+    .rungs { width: 200px; gap: 5px; }
+    .rungs span { font-size: 20px; padding: 3px 0 3px 0.18em; }
+  }
   @media (min-width: 900px) {
     .page { padding: 0 32px; }
-    .hero { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 56px; align-items: center; padding: 64px 0 88px; }
+    .top { padding: 20px 4px 14px; }
+    .hero { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 48px; align-items: center; padding: 56px 56px 56px; margin-top: 24px; }
     h1 { font-size: 68px; }
-    .friends { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 56px; align-items: center; padding: 88px 0; }
-    .grid { grid-template-columns: repeat(6, 34px); grid-auto-rows: 34px; }
+    .try { padding: 24px; }
+    .games { padding: 44px 0 12px; gap: 16px; }
+    .friends { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 48px; align-items: center; padding: 56px; margin-top: 28px; }
+    .friends .cta { grid-column: 1 / -1; }
   }
-  @media (max-width: 340px) {
+  @media (max-width: 350px) {
     .answers { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 380px) {
-    footer .by { margin-left: 0; }
+    .game { grid-template-columns: 1fr; }
+    .streak { font-size: 13px; padding: 8px 12px; gap: 6px; }
   }
 </style>
 </head>
 <body>
   <div class="page">
     <header class="top">
-      <img src="/assets/icon-192.png" alt="" width="40" height="40" />
       <span class="name">WitBlitz</span>
       <span class="left" id="left" hidden></span>
     </header>
@@ -257,6 +295,7 @@
     <main>
       <section class="hero">
         <div>
+          <img class="icon" src="/assets/icon-192.png" alt="" width="84" height="84" />
           <h1><span>Four quick games.</span> <span>New every day.</span></h1>
           <p class="lede">Trivia, words and number puzzles you can finish over a coffee, on one leaderboard with your friends and family.</p>
           <div class="cta">
@@ -268,58 +307,60 @@
           <p class="free">Free to play on iPhone and in any browser. WitBlitz Pro adds more.</p>
         </div>
 
-        <div class="board" aria-label="The four daily games">
-          <article class="game trivia">
-            <h3>Trivia Bolt</h3>
-            <p class="how">Ten questions a day, 15 seconds each. Try one.</p>
-            <div class="demo">
-              <p class="q" id="q">What is the chemical symbol for gold?</p>
-              <div class="answers" id="answers" role="group" aria-labelledby="q">
-                <button type="button" data-a="Ag"><b>A</b>Ag</button>
-                <button type="button" data-a="Au"><b>B</b>Au</button>
-                <button type="button" data-a="Gd"><b>C</b>Gd</button>
-                <button type="button" data-a="Go"><b>D</b>Go</button>
-              </div>
-              <p class="result" id="result" role="status"></p>
-            </div>
-          </article>
+        <div class="try" id="try">
+          <div class="label"><h3>Trivia Bolt: try one</h3><span class="secs" id="secs" aria-hidden="true">15</span></div>
+          <div class="clock" aria-hidden="true"><i id="clock"></i></div>
+          <p class="q" id="q">What is the chemical symbol for gold?</p>
+          <div class="answers" id="answers" role="group" aria-labelledby="q">
+            <button type="button" data-a="Ag"><b>A</b>Ag</button>
+            <button type="button" data-a="Au"><b>B</b>Au</button>
+            <button type="button" data-a="Gd"><b>C</b>Gd</button>
+            <button type="button" data-a="Go"><b>D</b>Go</button>
+          </div>
+          <p class="result" id="result" role="status"></p>
+        </div>
+      </section>
 
-          <article class="game letters">
+      <section class="games" aria-label="The other three daily games">
+        <article class="game letters">
+          <div>
             <h3>Letter Blitz</h3>
             <p class="how">Find the five-letter word in six tries.</p>
-            <div class="demo rows" role="img" aria-label="Three guesses. TRAIN has one letter in the right place and two in the wrong place. SLANT has four in the right place. PLANT is correct.">
-              <div class="tiles"><span class="near">T</span><span class="no">R</span><span class="ok">A</span><span class="no">I</span><span class="near">N</span></div>
-              <div class="tiles"><span class="no">S</span><span class="ok">L</span><span class="ok">A</span><span class="ok">N</span><span class="ok">T</span></div>
-              <div class="tiles"><span class="ok">P</span><span class="ok">L</span><span class="ok">A</span><span class="ok">N</span><span class="ok">T</span></div>
-            </div>
-          </article>
+          </div>
+          <div class="rows" role="img" aria-label="Three guesses. TRAIN has one letter in the right place and two in the wrong place. SLANT has four in the right place. PLANT is correct.">
+            <div class="tiles"><span class="near">T</span><span class="no">R</span><span class="ok">A</span><span class="no">I</span><span class="near">N</span></div>
+            <div class="tiles"><span class="no">S</span><span class="ok">L</span><span class="ok">A</span><span class="ok">N</span><span class="ok">T</span></div>
+            <div class="tiles"><span class="ok">P</span><span class="ok">L</span><span class="ok">A</span><span class="ok">N</span><span class="ok">T</span></div>
+          </div>
+        </article>
 
-          <article class="game ladder">
+        <article class="game ladder">
+          <div>
             <h3>Word Ladder</h3>
-            <p class="how">Change one letter at a time.</p>
-            <div class="demo rungs" role="img" aria-label="WORD becomes WORE, then WIRE, then WISE.">
-              <span>WORD</span>
-              <span>WOR<em>E</em></span>
-              <span>W<em>I</em>RE</span>
-              <span>WI<em>S</em>E</span>
-            </div>
-          </article>
+            <p class="how">Change one letter at a time to climb from one word to another.</p>
+          </div>
+          <div class="rungs" role="img" aria-label="WORD becomes WORE, then WIRE, then WISE.">
+            <span>WORD</span>
+            <span>WOR<em>E</em></span>
+            <span>W<em>I</em>RE</span>
+            <span>WI<em>S</em>E</span>
+          </div>
+        </article>
 
-          <article class="game sudoku">
-            <div>
-              <h3>Mini Sudoku</h3>
-              <p class="how">A six by six grid. The faster you finish, the higher you score.</p>
-            </div>
-            <div class="grid" role="img" aria-label="A six by six sudoku grid, partly filled in.">
-              <span>3</span><span></span><span>1</span><span>5</span><span></span><span class="me">4</span>
-              <span></span><span>2</span><span></span><span></span><span>6</span><span></span>
-              <span>6</span><span class="me">1</span><span></span><span>2</span><span></span><span>5</span>
-              <span></span><span>4</span><span class="sel"></span><span></span><span>1</span><span></span>
-              <span>1</span><span></span><span class="me">6</span><span>4</span><span></span><span>2</span>
-              <span></span><span>5</span><span></span><span></span><span>3</span><span></span>
-            </div>
-          </article>
-        </div>
+        <article class="game sudoku">
+          <div>
+            <h3>Mini Sudoku</h3>
+            <p class="how">A six by six grid. The faster you finish, the higher you score.</p>
+          </div>
+          <div class="grid" role="img" aria-label="A six by six sudoku grid, partly filled in.">
+            <span>3</span><span></span><span>1</span><span>5</span><span></span><span class="me">4</span>
+            <span></span><span>2</span><span></span><span></span><span>6</span><span></span>
+            <span>6</span><span class="me">1</span><span></span><span>2</span><span></span><span>5</span>
+            <span></span><span>4</span><span class="sel"></span><span></span><span>1</span><span></span>
+            <span>1</span><span></span><span class="me">6</span><span>4</span><span></span><span>2</span>
+            <span></span><span>5</span><span></span><span></span><span>3</span><span></span>
+          </div>
+        </article>
       </section>
 
       <section class="friends">
@@ -327,8 +368,8 @@
           <h2>Better with your people.</h2>
           <p>Start a group for your family or your friends. Everyone gets the same puzzles each day, and your group’s board shows who came out on top.</p>
           <span class="streak">
-            <svg viewBox="0 0 16 18" aria-hidden="true"><path d="M8 0c.6 3-1.2 4.4-2.6 6C4 7.600 3 9.200 3 11.200 3 14.800 5.200 17.500 8 17.500s5-2.700 5-6.300c0-1.800-.7-3.300-1.700-4.600-.3 1.100-.9 1.800-1.700 2.200C10 5.600 9.600 2.400 8 0z" fill="#F57C00"/><path d="M8 9.500c-1.200 1.300-1.900 2.300-1.900 3.600 0 1.500.8 2.600 1.900 2.600s1.900-1.100 1.900-2.600c0-1.300-.7-2.300-1.900-3.600z" fill="#F4C430"/></svg>
-            One puzzle a day keeps your streak
+            <svg viewBox="0 0 16 18" aria-hidden="true"><path d="M8 0c.6 3-1.2 4.4-2.6 6C4 7.6 3 9.2 3 11.2 3 14.8 5.2 17.5 8 17.5s5-2.7 5-6.300c0-1.800-.7-3.300-1.700-4.600-.3 1.100-.9 1.800-1.700 2.200C10 5.600 9.600 2.400 8 0z" fill="#F57C00"/><path d="M8 9.500c-1.200 1.300-1.900 2.300-1.900 3.600 0 1.500.8 2.600 1.900 2.600s1.900-1.100 1.900-2.600c0-1.300-.7-2.300-1.900-3.600z" fill="#F4C430"/></svg>
+            A puzzle a day keeps your streak
           </span>
         </div>
         <div class="standings" role="img" aria-label="An example group board: Mom first with 3,420 points, you second with 3,180, Dad third with 2,950.">
@@ -339,6 +380,12 @@
             <li><span class="medal" style="background:var(--bronze)">3</span>Dad<span class="pts">2,950</span></li>
           </ol>
         </div>
+        <div class="cta">
+          <a class="store" href="https://apps.apple.com/app/id6761444213" aria-label="Download WitBlitz on the App Store">
+            <img src="/assets/download-on-the-app-store.svg" alt="Download on the App Store" width="162" height="54" />
+          </a>
+          <a class="play" href="https://play.witblitz.app/">Play free in your browser</a>
+        </div>
       </section>
     </main>
 
@@ -346,7 +393,7 @@
       <a href="/privacy/">Privacy Policy</a>
       <a href="/terms/">Terms of Service</a>
       <a href="mailto:kindlingprivacy@gmail.com">Contact</a>
-      <span class="by">Made by Kindling</span>
+      <span>Made by Kindling</span>
     </footer>
   </div>
 
@@ -369,23 +416,69 @@
       tick(true);
       setInterval(function () { tick(false); }, 30000);
 
-      // One trivia question, answered right here.
+      // One trivia question, on a 15-second clock like the real game. The
+      // clock waits for the visitor: it starts once the card is on screen and
+      // they have scrolled to it (on a touch screen), pointed at it, or moved
+      // keyboard focus into it. Nobody arrives to a card that already says
+      // time is up. It never runs for someone who has asked their device for
+      // less motion.
+      var card = document.getElementById('try');
       var answers = document.getElementById('answers');
       var result = document.getElementById('result');
-      answers.addEventListener('click', function (e) {
-        var b = e.target.closest('button');
-        if (!b || b.disabled) return;
+      var clock = document.getElementById('clock');
+      var secs = document.getElementById('secs');
+      var WHY = 'Au comes from aurum, the Latin word for gold.';
+      var done = false, started = false, endsAt = 0, timer = null;
+
+      function finish(picked) {
+        if (done) return;
+        done = true;
+        if (timer) clearInterval(timer);
+        clock.classList.add('stop');
         var buttons = answers.querySelectorAll('button');
         for (var i = 0; i < buttons.length; i++) {
           buttons[i].disabled = true;
           if (buttons[i].getAttribute('data-a') === 'Au') buttons[i].className = 'right';
         }
-        var correct = b.getAttribute('data-a') === 'Au';
-        if (!correct) b.className = 'wrong';
-        result.textContent = correct
-          ? 'Correct. Au comes from aurum, the Latin word for gold.'
-          : 'It’s Au, from aurum, the Latin word for gold.';
+        if (picked && picked.getAttribute('data-a') !== 'Au') picked.className = 'wrong';
+        if (!picked) result.textContent = 'Time’s up. It’s Au. ' + WHY;
+        else if (picked.getAttribute('data-a') === 'Au') result.textContent = 'Correct. ' + WHY;
+        else result.textContent = 'It’s Au. ' + WHY;
+      }
+      function start() {
+        if (started || done) return;
+        started = true;
+        endsAt = Date.now() + 15000;
+        clock.classList.add('go');
+        timer = setInterval(function () {
+          var leftMs = endsAt - Date.now();
+          secs.textContent = String(Math.max(0, Math.ceil(leftMs / 1000)));
+          if (leftMs <= 0) finish(null);
+        }, 200);
+      }
+      answers.addEventListener('click', function (e) {
+        var b = e.target.closest('button');
+        if (b && !b.disabled) finish(b);
       });
+      var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (calm || !('IntersectionObserver' in window)) {
+        secs.hidden = true;
+      } else {
+        var onScreen = false, engaged = false;
+        var touchOnly = window.matchMedia('(hover: none)').matches;
+        var io = new IntersectionObserver(function (entries) {
+          onScreen = entries[0].isIntersecting;
+          maybeStart();
+        }, { threshold: 0.6 });
+        var maybeStart = function () {
+          if (onScreen && engaged && !started && !done) { start(); io.disconnect(); }
+        };
+        var engage = function () { engaged = true; maybeStart(); };
+        io.observe(card);
+        if (touchOnly) window.addEventListener('scroll', engage, { passive: true });
+        card.addEventListener('pointerenter', engage);
+        card.addEventListener('focusin', engage);
+      }
     })();
   </script>
 </body>
