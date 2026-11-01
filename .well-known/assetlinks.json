@@ -1,1 +1,17 @@
-[{"relation":["delegate_permission/common.handle_all_urls"],"target":{"namespace":"android_app","package_name":"com.kindling.witblitz","sha256_cert_fingerprints":["99:86:2E:CC:5D:6C:35:60:48:D3:64:04:FD:FD:B7:BA:99:D5:D2:EA:7B:B3:89:F5:8A:5E:29:8E:80:AD:5D:95"]}}]
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.kindling.witblitz",
+      "sha256_cert_fingerprints": [
+        "99:86:2E:CC:5D:6C:35:60:48:D3:64:04:FD:FD:B7:BA:99:D5:D2:EA:7B:B3:89:F5:8A:5E:29:8E:80:AD:5D:95",
+        "28:A7:7A:82:9F:8A:65:B2:F5:5D:8E:1A:60:21:58:1F:AB:28:4C:C2:12:F3:53:98:26:AE:45:6E:85:6C:1B:64",
+        "F9:42:B3:1C:34:46:28:6A:66:F2:81:0F:C2:BA:7E:6E:17:D0:68:A6:E6:53:6B:EB:95:5C:7D:81:FF:07:A5:4F",
+        "73:E7:AA:88:9F:64:8C:6E:80:53:D0:DF:3C:74:19:4E:C4:E9:54:F1:86:83:A2:A8:46:52:E2:66:FE:C7:0E:D4"
+      ]
+    }
+  }
+]
