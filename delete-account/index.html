@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Delete your WitBlitz account</title>
+<meta name="description" content="How to delete your WitBlitz account, in the app or by email, and what is deleted." />
+<meta name="theme-color" content="#F5F5FA" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0D0D1A" media="(prefers-color-scheme: dark)" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+<style>
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("/assets/fonts/SpaceGrotesk-Regular.woff2") format("woff2");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("/assets/fonts/SpaceGrotesk-Bold.woff2") format("woff2");
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  :root {
+    --paper: #F5F5FA; --surface: #FFFFFF; --ink: #1A1A2E; --muted: #6B6B8D; --line: #E0E0EB; --glow: #00BCD4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper: #0D0D1A; --surface: #1A1A2E; --ink: #F5F5FA; --muted: #9B9BB5; --line: #2D2D45; }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 18px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--glow); outline-offset: 3px; border-radius: 6px; }
+  .page { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+  .top { display: flex; align-items: center; gap: 10px; padding: 16px 4px 12px; }
+  .top .name { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
+  main { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 24px 20px; margin-top: 12px; }
+  h1 { font-size: clamp(30px, 7vw, 40px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 700; margin: 0 0 16px; }
+  h2 { font-size: 21px; line-height: 1.3; margin: 28px 0 8px; }
+  p { margin: 0 0 14px; }
+  ol, ul { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 6px 0; }
+  footer { padding: 24px 4px 40px; color: var(--muted); font-size: 15px; display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  footer a { text-underline-offset: 3px; }
+  @media (min-width: 640px) { main { padding: 32px 28px; } }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="top">
+      <a class="name" href="/">WitBlitz</a>
+    </header>
+
+    <main>
+      <h1>Delete your WitBlitz account</h1>
+      <p>You can delete your account at any time. There are two ways.</p>
+
+      <h2>In the app</h2>
+      <ol>
+        <li>Open WitBlitz and go to Settings (also under Profile).</li>
+        <li>Choose Delete Account and confirm.</li>
+      </ol>
+      <p>Deletion takes effect at once.</p>
+
+      <h2>By email</h2>
+      <p>If you cannot use the app, email <a href="mailto:kindlingprivacy@gmail.com">kindlingprivacy@gmail.com</a> from the email address on your account and ask for it to be deleted. We delete it within 7 days.</p>
+
+      <h2>What is deleted</h2>
+      <ul>
+        <li>Your profile, including your display name and email address.</li>
+        <li>Your game results, scores, streaks and badges.</li>
+        <li>Your group memberships. A group you own passes to the member who joined it first; a group with no other members is deleted.</li>
+        <li>Your duel records.</li>
+      </ul>
+      <p>Anonymous, aggregated statistics (for example, how many players finished a puzzle) may be retained; they do not identify you. The <a href="/privacy/">Privacy Policy</a> has the full picture, including how long backups keep a copy.</p>
+    </main>
+
+    <footer>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+      <a href="mailto:kindlingprivacy@gmail.com">Contact</a>
+      <span>Made by Kindling</span>
+    </footer>
+  </div>
+</body>
+</html>
