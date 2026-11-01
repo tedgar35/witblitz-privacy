@@ -129,9 +129,13 @@
 </head>
 <body>
   <div class="wrap" id="app"></div>
+  <script src="/assets/play_live.js"></script>
   <script>
     (function () {
       var appStore = 'https://apps.apple.com/app/id6761444213';
+      var playStore = 'https://play.google.com/store/apps/details?id=com.kindling.witblitz';
+      // The Play listing's switch, shared with /get/ (one flip on launch day).
+      var PLAY_LIVE = !!window.WB_PLAY_LIVE;
       var webApp = 'https://play.witblitz.app';
       var app = document.getElementById('app');
 
@@ -164,6 +168,9 @@
         if (/iPhone|iPad|iPod/i.test(ua)) return true;
         return /Macintosh/i.test(ua) && (navigator.maxTouchPoints || 0) > 1;
       }
+      function isAndroidDevice() {
+        return /Android/i.test(navigator.userAgent || '');
+      }
 
       app.appendChild(header());
       app.appendChild(el('div', 'line'));
@@ -191,6 +198,7 @@
 
       var playUrl = webApp + '/join/' + encodeURIComponent(code);
       var onApple = isAppleTouchDevice();
+      var onAndroid = !onApple && isAndroidDevice();
 
       var card = el('div', 'card');
       card.appendChild(el('h1', 'invited', 'You’re invited to a WitBlitz group.'));
@@ -216,10 +224,22 @@
         card.appendChild(link('btn', 'Get WitBlitz on the App Store', appStore));
         card.appendChild(el('p', 'hint', 'Already have the app? Go back to your message and tap the link again.'));
         card.appendChild(link('alt', 'Or play free in your browser', playUrl));
+      } else if (onAndroid && PLAY_LIVE) {
+        card.appendChild(link('btn', 'Get WitBlitz on Google Play', playStore));
+        card.appendChild(el('p', 'hint', 'Already have the app? Go back to your message and tap the link again.'));
+        card.appendChild(link('alt', 'Or play free in your browser', playUrl));
+      } else if (onAndroid) {
+        card.appendChild(link('btn', 'Play free in your browser', playUrl));
+        card.appendChild(el('p', 'hint', 'Play free in your browser; you’ll join the group when you create your free account.'));
+        card.appendChild(el('p', 'hint', 'WitBlitz for Android is on its way.'));
       } else {
         card.appendChild(link('btn', 'Play free in your browser', playUrl));
         card.appendChild(el('p', 'hint', 'Create a free account and you’ll join the group with this code.'));
         card.appendChild(link('alt', 'On an iPhone? Get the app', appStore));
+        if (PLAY_LIVE) {
+          card.appendChild(el('span', '', ' '));
+          card.appendChild(link('alt', 'On Android? Get it on Google Play', playStore));
+        }
       }
 
       app.appendChild(card);

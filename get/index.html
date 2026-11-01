@@ -124,12 +124,14 @@
     </footer>
   </div>
 
+  <script src="/assets/play_live.js"></script>
   <script>
     (function () {
-      // Flip to true on Play launch day (the owner's one-line change). Until
-      // then an Android visitor is sent to the browser, and the desktop page
-      // names the App Store and the browser only.
-      var PLAY_LIVE = false;
+      // The switch lives in /assets/play_live.js, shared with the invite
+      // lander (404.html): launch day is one flip there. Until then an
+      // Android visitor is sent to the browser, and the desktop page names
+      // the App Store and the browser only.
+      var PLAY_LIVE = !!window.WB_PLAY_LIVE;
       var ua = navigator.userAgent || '';
       var touch = navigator.maxTouchPoints || 0;
       var android = /android/i.test(ua);
