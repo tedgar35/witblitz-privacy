@@ -104,14 +104,16 @@
           </div>
         </div>
 
-        <!-- Desktop, and any browser the script cannot place: everything. -->
+        <!-- Desktop, and any browser the script cannot place: everything.
+             The static text is the live state (Google Play since 2026-11-06);
+             the script hides Google Play again when the switch is false. -->
         <div id="desktop">
           <div class="cta">
             <a class="store" href="https://apps.apple.com/app/id6761444213">App Store (iPhone)</a>
-            <a class="store" id="desktop-play" href="https://play.google.com/store/apps/details?id=com.kindling.witblitz" hidden>Google Play (Android)</a>
+            <a class="store" id="desktop-play" href="https://play.google.com/store/apps/details?id=com.kindling.witblitz">Google Play (Android)</a>
             <a class="play" href="https://play.witblitz.app/">Play free in your browser</a>
           </div>
-          <p class="note" id="desktop-note">Free to play on iPhone and in any browser. The Android app is on its way.</p>
+          <p class="note" id="desktop-note">Free to play on iPhone, on Android and in any browser.</p>
         </div>
       </section>
     </main>
@@ -124,13 +126,14 @@
     </footer>
   </div>
 
-  <script src="/assets/play_live.js"></script>
+  <script src="/assets/play_live.js?v=20261106"></script>
   <script>
     (function () {
       // The switch lives in /assets/play_live.js, shared with the invite
-      // lander (404.html): launch day is one flip there. Until then an
-      // Android visitor is sent to the browser, and the desktop page names
-      // the App Store and the browser only.
+      // lander (404.html): the Google Play listing went live on 2026-11-06.
+      // With the switch false (the rollback) an Android visitor is sent to
+      // the browser, and the desktop page names the App Store and the
+      // browser only.
       var PLAY_LIVE = !!window.WB_PLAY_LIVE;
       var ua = navigator.userAgent || '';
       var touch = navigator.maxTouchPoints || 0;
@@ -140,9 +143,9 @@
       var hide = function (id) { document.getElementById(id).hidden = true; };
       if (android) { hide('desktop'); show(PLAY_LIVE ? 'android-live' : 'android-soon'); }
       else if (ios) { hide('desktop'); show('ios'); }
-      else if (PLAY_LIVE) {
-        show('desktop-play');
-        document.getElementById('desktop-note').textContent = 'Free to play on iPhone, on Android and in any browser.';
+      else if (!PLAY_LIVE) {
+        hide('desktop-play');
+        document.getElementById('desktop-note').textContent = 'Free to play on iPhone and in any browser. The Android app is on its way.';
       }
     })();
   </script>
