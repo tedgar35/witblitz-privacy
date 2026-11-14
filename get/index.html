@@ -4,19 +4,20 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Get WitBlitz</title>
-<meta name="description" content="Get WitBlitz: the iPhone app on the App Store, the Android app on Google Play, or play free in your browser." />
-<meta name="theme-color" content="#F5F5FA" media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#0D0D1A" media="(prefers-color-scheme: dark)" />
+<meta name="description" content="Get WitBlitz, a free daily puzzle app with no ads. On the App Store for iPhone, on Google Play for Android, or free in your browser." />
+<meta name="theme-color" content="#492887" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://witblitz.app/get/" />
 <meta property="og:title" content="Get WitBlitz" />
-<meta property="og:description" content="Quick daily games with friends. On iPhone, on Android, and in any browser." />
+<meta property="og:description" content="Free daily puzzles with no ads. On iPhone, on Android, and in any browser." />
 <meta property="og:image" content="https://witblitz.app/assets/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+<link rel="preload" href="/assets/fonts/SpaceGrotesk-Bold.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/get-trivia.webp" as="image" type="image/webp" />
 <style>
   @font-face {
     font-family: "Space Grotesk";
@@ -25,141 +26,300 @@
   }
   @font-face {
     font-family: "Space Grotesk";
+    src: url("/assets/fonts/SpaceGrotesk-Medium.woff2") format("woff2");
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Space Grotesk";
     src: url("/assets/fonts/SpaceGrotesk-Bold.woff2") format("woff2");
     font-weight: 700; font-style: normal; font-display: swap;
   }
   :root {
-    --paper: #F5F5FA; --surface: #FFFFFF; --ink: #1A1A2E; --muted: #6B6B8D; --line: #E0E0EB; --glow: #00BCD4;
+    --paper: #F5F5FA; --surface: #FFFFFF; --ink: #1A1A2E; --muted: #5A5A75; --line: #E0E0EB;
+    --glow: #00BCD4; --accent: #492887;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --paper: #0D0D1A; --surface: #1A1A2E; --ink: #F5F5FA; --muted: #9B9BB5; --line: #2D2D45; }
+    :root { --paper: #0D0D1A; --surface: #1A1A2E; --ink: #F5F5FA; --muted: #9B9BB5; --line: #2D2D45; --accent: #B79CF0; }
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0; background: var(--paper); color: var(--ink);
     font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 18px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+    font-size: 17px; line-height: 1.45; -webkit-font-smoothing: antialiased;
   }
   a { color: inherit; }
-  :focus-visible { outline: 3px solid var(--glow); outline-offset: 3px; border-radius: 6px; }
-  .page { max-width: 720px; margin: 0 auto; padding: 0 16px; }
-  .top { display: flex; align-items: center; gap: 10px; padding: 16px 4px 12px; }
-  .top .name { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
-  .hero {
-    margin-top: 12px; border-radius: 28px; padding: 28px 20px 24px; color: #FFFFFF;
-    background: linear-gradient(165deg, #1259C3 0%, #0A6FDB 52%, #0394FD 100%);
-  }
-  .hero .icon { width: 84px; height: 84px; border-radius: 20px; display: block; box-shadow: 0 12px 28px rgba(4, 22, 66, 0.38); }
-  h1 { margin: 22px 0 0; font-size: clamp(34px, 9vw, 52px); line-height: 1; letter-spacing: -0.035em; font-weight: 700; }
-  .lede { margin: 14px 0 0; max-width: 30em; font-size: clamp(17px, 2.2vw, 20px); }
-  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 24px; }
-  .store {
-    display: inline-flex; align-items: center; justify-content: center;
-    height: 54px; padding: 0 22px; background: #1A1A2E; color: #FFFFFF;
-    border-radius: 12px; text-decoration: none; font-size: 17px; font-weight: 700; white-space: nowrap;
-  }
-  .play {
-    display: inline-flex; align-items: center; justify-content: center;
-    height: 54px; padding: 0 22px; background: #FED800; color: #1A1A2E;
-    border-radius: 12px; text-decoration: none; font-size: 17px; font-weight: 700; white-space: nowrap;
-  }
-  .note { margin: 14px 0 0; font-size: 15px; }
-  .hero :focus-visible { outline-color: #FFFFFF; }
+  :focus-visible { outline: 3px solid var(--glow); outline-offset: 3px; border-radius: 8px; }
   [hidden] { display: none !important; }
-  footer { padding: 24px 4px 40px; color: var(--muted); font-size: 15px; display: flex; flex-wrap: wrap; gap: 8px 22px; }
-  footer a { text-underline-offset: 3px; }
-  @media (min-width: 640px) { .hero { padding: 48px 40px 40px; } }
+  .wrap { max-width: 440px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+
+  /* The first screen: the ad's violet, the ad's words, one amber button. */
+  .hero {
+    background: linear-gradient(180deg, #492887 0%, #7F37CA 100%); color: #FFFFFF; overflow: hidden;
+    padding-top: 20px; padding-top: max(20px, env(safe-area-inset-top));
+  }
+  .hero :focus-visible { outline-color: #FFFFFF; }
+  .brand {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 44px;
+    text-decoration: none; font-size: 20px; font-weight: 700; letter-spacing: -0.01em;
+  }
+  .brand img { display: block; width: 36px; height: 36px; border-radius: 9px; }
+  h1 { margin: 24px 0 0; font-size: 38px; font-size: clamp(32px, 9.6vw, 40px); line-height: 1.08; letter-spacing: -0.02em; font-weight: 700; }
+  .lede { margin: 10px 0 0; font-size: 18px; line-height: 1.35; color: #EFE6FF; }
+
+  .cta { margin-top: 22px; display: flex; flex-direction: column; }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 60px; padding: 8px 20px; border-radius: 16px;
+    background: #F5A524; color: #1A1A2E; font-size: 19px; font-weight: 700; line-height: 1.2;
+    text-decoration: none; text-align: center; box-shadow: 0 8px 20px rgba(26, 26, 46, 0.28);
+  }
+  .btn svg { flex: none; }
+  .cta-note { margin: 10px 0 0; text-align: center; font-size: 14px; line-height: 1.4; color: #EFE6FF; }
+  .alt {
+    margin-top: 2px; display: flex; align-items: center; justify-content: center; min-height: 44px;
+    font-size: 16px; font-weight: 500; text-align: center; text-underline-offset: 3px;
+  }
+  .stores { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .store {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 18px;
+    border-radius: 12px; background: #15152A; color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.22);
+    text-decoration: none; font-size: 16px; font-weight: 700; white-space: nowrap;
+  }
+
+  /* The app's own screen, rising from the bottom edge of the first screen. */
+  .shot {
+    margin: 14px auto 0; width: 290px; max-width: 100%; height: 300px; overflow: hidden;
+    border: 6px solid rgba(255, 255, 255, 0.16); border-bottom: 0; border-radius: 28px 28px 0 0;
+    background: #F0F0F5; box-shadow: 0 -6px 30px rgba(15, 10, 40, 0.35);
+  }
+  .shot img { display: block; width: 100%; height: auto; }
+
+  .more { padding-top: 32px; padding-bottom: 28px; display: flex; flex-direction: column; gap: 24px; }
+  h2 { margin: 0; font-size: 24px; line-height: 1.25; letter-spacing: -0.01em; font-weight: 700; }
+  .games { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .games li { display: flex; align-items: center; gap: 14px; min-height: 64px; }
+  .tile { flex: none; width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+  .tile.trivia { background: #B45309; }
+  .tile.words { background: #00795A; }
+  .tile.grid { background: #2A6FC4; }
+  .games strong { display: block; font-size: 18px; line-height: 1.3; font-weight: 700; }
+  .games span { display: block; font-size: 15px; line-height: 1.35; color: var(--muted); }
+  .beat {
+    display: flex; align-items: center; gap: 14px; padding: 16px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  }
+  .beat svg { flex: none; color: var(--accent); }
+  .beat p { margin: 0; font-size: 16px; line-height: 1.4; }
+  .more .cta { margin-top: 0; }
+  .more .cta-note { color: var(--muted); }
+
+  footer { padding-top: 20px; padding-bottom: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
+  footer nav { display: flex; flex-wrap: wrap; column-gap: 20px; }
+  footer nav a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 3px; }
+  footer p { margin: 4px 0 0; }
+  footer .marks { margin-top: 12px; font-size: 13px; line-height: 1.45; }
+
+  /* A very narrow page (a phone with the browser's zoom near its largest):
+     less padding, smaller headings, each row's mark above its words. */
+  @media (max-width: 219px) {
+    body { overflow-wrap: anywhere; }
+    .wrap { padding-left: 12px; padding-right: 12px; }
+    .brand { flex-wrap: wrap; }
+    h1 { font-size: 24px; }
+    h2 { font-size: 20px; }
+    .btn { padding-left: 10px; padding-right: 10px; }
+    .store { white-space: normal; text-align: center; padding: 8px 12px; }
+    .games li, .beat { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .beat { padding: 10px 8px; }
+  }
+
+  /* A wide screen: the words on the left, the app's screen on the right. */
+  @media (min-width: 820px) {
+    .hero .wrap {
+      max-width: 980px; display: grid; grid-template-columns: minmax(0, 1fr) 332px; column-gap: 64px; align-items: end;
+    }
+    .pitch { padding: 12px 0 64px; }
+    h1 { font-size: 56px; margin-top: 56px; }
+    .lede { font-size: 22px; }
+    .cta { max-width: 420px; }
+    .shot { width: 332px; height: 368px; margin: 48px 0 0; }
+    .more.wrap, footer.wrap { max-width: 720px; }
+    .more { padding-top: 56px; }
+    .more .cta { max-width: 420px; }
+  }
 </style>
 </head>
 <body>
-  <div class="page">
-    <header class="top">
-      <a class="name" href="/">WitBlitz</a>
-    </header>
+  <header class="hero">
+    <div class="wrap">
+      <div class="pitch">
+        <a class="brand" href="/">
+          <img src="/assets/icon-192.png" alt="" width="36" height="36" />
+          <span>WitBlitz</span>
+        </a>
+        <h1>Today’s puzzles are waiting.</h1>
+        <p class="lede">Free daily puzzle app. No ads.</p>
 
-    <main>
-      <section class="hero">
-        <img class="icon" src="/assets/icon-192.png" alt="" width="84" height="84" />
-        <h1>Get WitBlitz</h1>
-        <p class="lede" id="lede">Quick daily games with friends. On iPhone, on Android, and in any browser.</p>
-
-        <!-- iPhone and iPad: the App Store campaign link. -->
-        <div class="cta" id="ios" hidden>
-          <a class="store" href="https://apps.apple.com/app/apple-store/id6761444213?pt=128727679&amp;ct=get&amp;mt=8">Download on the App Store</a>
-          <a class="play" href="https://play.witblitz.app/">Play in your browser</a>
-        </div>
-
-        <!-- Android, once the Play listing is live. -->
-        <div class="cta" id="android-live" hidden>
-          <a class="store" href="https://play.google.com/store/apps/details?id=com.kindling.witblitz&amp;referrer=utm_source%3Dwitblitz.app%26utm_medium%3Dweb%26utm_campaign%3Dget">Get it on Google Play</a>
-          <a class="play" href="https://play.witblitz.app/">Play in your browser</a>
-        </div>
-
-        <!-- Android, before the listing is live. -->
-        <div id="android-soon" hidden>
-          <p class="note">WitBlitz for Android is on its way. Play in your browser now.</p>
-          <div class="cta">
-            <a class="play" href="https://play.witblitz.app/">Play free in your browser</a>
+        <!-- The static text is what a computer sees, and what any browser sees
+             if the script does not run. The script below rewrites this block
+             for an iPhone, an iPad and an Android phone. -->
+        <div class="cta" data-cta>
+          <a class="btn" data-main href="https://play.witblitz.app/">
+            <svg data-main-icon hidden width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 11l5 5 5-5"></path><path d="M5 20h14"></path></svg>
+            <span data-main-label>Play free in your browser</span>
+          </a>
+          <p class="cta-note" data-note>Or get the free app on your phone.</p>
+          <div class="stores" data-stores>
+            <a class="store" data-store="ios" href="https://apps.apple.com/app/apple-store/id6761444213?pt=128727679&amp;ct=get&amp;mt=8">App Store (iPhone)</a>
+            <a class="store" data-store="android" href="https://play.google.com/store/apps/details?id=com.kindling.witblitz&amp;referrer=utm_source%3Dwitblitz.app%26utm_medium%3Dweb%26utm_campaign%3Dget">Google Play (Android)</a>
           </div>
+          <a class="alt" data-alt hidden href="https://play.witblitz.app/">Or try it in your browser first</a>
         </div>
+      </div>
 
-        <!-- Desktop, and any browser the script cannot place: everything.
-             The static text is the live state (Google Play since 2026-11-06);
-             the script hides Google Play again when the switch is false. -->
-        <div id="desktop">
-          <div class="cta">
-            <a class="store" href="https://apps.apple.com/app/apple-store/id6761444213?pt=128727679&amp;ct=get&amp;mt=8">App Store (iPhone)</a>
-            <a class="store" id="desktop-play" href="https://play.google.com/store/apps/details?id=com.kindling.witblitz&amp;referrer=utm_source%3Dwitblitz.app%26utm_medium%3Dweb%26utm_campaign%3Dget">Google Play (Android)</a>
-            <a class="play" href="https://play.witblitz.app/">Play free in your browser</a>
-          </div>
-          <p class="note" id="desktop-note">Free to play on iPhone, on Android and in any browser.</p>
+      <div class="shot">
+        <img src="/assets/get-trivia.webp" width="720" height="847" alt="A trivia question in WitBlitz with four answers to choose from" />
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap more">
+    <h2>Three quick puzzles, new every day</h2>
+
+    <ul class="games">
+      <li>
+        <div class="tile trivia">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 9a3 3 0 0 1 6 0.8c0 2-3 2.4-3 4.6"></path><path d="M12 18.2v0.1"></path></svg>
         </div>
-      </section>
-    </main>
+        <div><strong>Trivia</strong><span>Ten quick questions a round.</span></div>
+      </li>
+      <li>
+        <div class="tile words">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="8" width="5" height="8" rx="1.2"></rect><rect x="9.5" y="8" width="5" height="8" rx="1.2"></rect><rect x="16.5" y="8" width="5" height="8" rx="1.2"></rect></svg>
+        </div>
+        <div><strong>A word puzzle</strong><span>Find the five-letter word in six guesses.</span></div>
+      </li>
+      <li>
+        <div class="tile grid">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2.5"></rect><path d="M4 12h16"></path><path d="M12 4v16"></path></svg>
+        </div>
+        <div><strong>Mini Sudoku or Word Ladder</strong><span>A quick one that changes each day.</span></div>
+      </li>
+    </ul>
 
-    <footer>
+    <div class="beat">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V11"></path><path d="M12 20V4"></path><path d="M19 20v-6"></path></svg>
+      <p>Then see what percent of players you beat. Everyone gets the same puzzles.</p>
+    </div>
+
+    <div class="cta" data-cta>
+      <a class="btn" data-main href="https://play.witblitz.app/">
+        <svg data-main-icon hidden width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 11l5 5 5-5"></path><path d="M5 20h14"></path></svg>
+        <span data-main-label>Play free in your browser</span>
+      </a>
+      <p class="cta-note" data-note>Or get the free app on your phone.</p>
+      <div class="stores" data-stores>
+        <a class="store" data-store="ios" href="https://apps.apple.com/app/apple-store/id6761444213?pt=128727679&amp;ct=get&amp;mt=8">App Store (iPhone)</a>
+        <a class="store" data-store="android" href="https://play.google.com/store/apps/details?id=com.kindling.witblitz&amp;referrer=utm_source%3Dwitblitz.app%26utm_medium%3Dweb%26utm_campaign%3Dget">Google Play (Android)</a>
+      </div>
+      <a class="alt" data-alt hidden href="https://play.witblitz.app/">Or try it in your browser first</a>
+    </div>
+  </main>
+
+  <footer class="wrap">
+    <nav>
       <a href="/privacy/">Privacy Policy</a>
       <a href="/terms/">Terms of Service</a>
       <a href="mailto:kindlingprivacy@gmail.com">Contact</a>
-      <span>Made by Kindling</span>
-    </footer>
-  </div>
+    </nav>
+    <p>Made by Kindling</p>
+    <p class="marks">iPhone and iPad are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and Android are trademarks of Google LLC.</p>
+  </footer>
 
   <script src="/assets/play_live.js?v=20261106"></script>
   <script>
     (function () {
-      // The switch lives in /assets/play_live.js, shared with the invite
-      // lander (404.html): the Google Play listing went live on 2026-11-06.
-      // With the switch false (the rollback) an Android visitor is sent to
-      // the browser, and the desktop page names the App Store and the
-      // browser only.
-      var PLAY_LIVE = !!window.WB_PLAY_LIVE;
-      var ua = navigator.userAgent || '';
-      var touch = navigator.maxTouchPoints || 0;
-      var android = /android/i.test(ua);
-      var ios = /iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && touch > 1);
-      var show = function (id) { document.getElementById(id).hidden = false; };
-      var hide = function (id) { document.getElementById(id).hidden = true; };
-      if (android) { hide('desktop'); show(PLAY_LIVE ? 'android-live' : 'android-soon'); }
-      else if (ios) { hide('desktop'); show('ios'); }
-      else if (!PLAY_LIVE) {
-        hide('desktop-play');
-        document.getElementById('desktop-note').textContent = 'Free to play on iPhone and in any browser. The Android app is on its way.';
-      }
-      // Phase 374: an ad link to this page carries ?src=<tag>; the browser
-      // game's links forward it, so the first-run ledger can tell which links
-      // bring in players who stay. Only `src`, lowercased, in the shape the
-      // server keeps; the store links are unchanged; nothing else is forwarded.
-      // A failure of any kind leaves the plain links.
+      // What each visitor is offered:
+      //   an iPhone         the App Store first, the browser game second
+      //   an Android phone  Google Play first, the browser game second (while
+      //                     the switch in /assets/play_live.js is true; with
+      //                     it false, the browser game only)
+      //   an iPad           the browser game only (the app is laid out for a
+      //                     phone; IPAD_TO_BROWSER false offers it the App
+      //                     Store as an iPhone is offered it)
+      //   a computer        the static page: the browser game, and both stores
+      // An ad's link carries ?src=<tag>. The tag rides on the browser game's
+      // link (Phase 374) and on the store links, as Apple's campaign token and
+      // Google Play's campaign, so each ad's installs can be told apart. Only
+      // `src` is read, lowercased, in the shape the server keeps; nothing else
+      // from the address is read or forwarded, and nothing is stored. A
+      // failure of any kind leaves the static page as it is.
       try {
-        var m = /(?:^|[?&])src=([^&#]*)/.exec(location.search || '');
-        var src = m ? decodeURIComponent(m[1]).toLowerCase() : '';
-        if (/^[a-z0-9_-]{1,32}$/.test(src)) {
-          var plays = document.querySelectorAll('a.play');
-          for (var i = 0; i < plays.length; i++) {
-            var h = plays[i].getAttribute('href');
-            plays[i].setAttribute('href', h + (h.indexOf('?') < 0 ? '?' : '&') + 'src=' + src);
+        var PLAY_LIVE = !!window.WB_PLAY_LIVE;
+        var IPAD_TO_BROWSER = true;
+        var ua = navigator.userAgent || '';
+        var touch = navigator.maxTouchPoints || 0;
+        var android = /android/i.test(ua);
+        var ipad = /ipad/i.test(ua) || (/macintosh/i.test(ua) && touch > 1);
+        var iphone = !ipad && /iphone|ipod/i.test(ua);
+
+        var src = '';
+        try {
+          var m = /(?:^|[?&])src=([^&#]*)/.exec(location.search || '');
+          var s = m ? decodeURIComponent(m[1]).toLowerCase() : '';
+          if (/^[a-z0-9_-]{1,32}$/.test(s)) src = s;
+        } catch (e) { src = ''; }
+        // Apple keeps a campaign token of 30 characters or fewer.
+        var token = (src && src.length <= 30) ? src : 'get';
+
+        var APP = 'https://apps.apple.com/app/apple-store/id6761444213?pt=128727679&ct=' + token + '&mt=8';
+        var PLAY = 'https://play.google.com/store/apps/details?id=com.kindling.witblitz&referrer=utm_source%3Dwitblitz.app%26utm_medium%3Dweb%26utm_campaign%3D' + token;
+        var WEB = 'https://play.witblitz.app/' + (src ? '?src=' + src : '');
+
+        var state = 'computer';
+        if (android) state = PLAY_LIVE ? 'android' : 'android-soon';
+        else if (iphone) state = 'iphone';
+        else if (ipad) state = IPAD_TO_BROWSER ? 'ipad' : 'ipad-store';
+
+        var blocks = document.querySelectorAll('[data-cta]');
+        for (var i = 0; i < blocks.length; i++) {
+          var b = blocks[i];
+          var main = b.querySelector('[data-main]');
+          var label = b.querySelector('[data-main-label]');
+          var icon = b.querySelector('[data-main-icon]');
+          var note = b.querySelector('[data-note]');
+          var stores = b.querySelector('[data-stores]');
+          var alt = b.querySelector('[data-alt]');
+          var ios = b.querySelector('[data-store="ios"]');
+          var play = b.querySelector('[data-store="android"]');
+
+          ios.setAttribute('href', APP);
+          play.setAttribute('href', PLAY);
+          alt.setAttribute('href', WEB);
+
+          if (state === 'iphone' || state === 'ipad-store' || state === 'android') {
+            main.setAttribute('href', state === 'android' ? PLAY : APP);
+            label.textContent = 'Get the free app';
+            icon.removeAttribute('hidden');
+            note.textContent = state === 'iphone' ? 'Opens the App Store. For iPhone.'
+              : state === 'android' ? 'Opens Google Play. For Android.'
+              : 'Opens the App Store.';
+            stores.setAttribute('hidden', '');
+            alt.removeAttribute('hidden');
+          } else {
+            main.setAttribute('href', WEB);
+            label.textContent = 'Play free in your browser';
+            if (state === 'ipad') {
+              note.textContent = 'On an iPad, WitBlitz plays in your browser. No download.';
+              stores.setAttribute('hidden', '');
+            } else if (state === 'android-soon') {
+              note.textContent = 'WitBlitz for Android is on its way.';
+              stores.setAttribute('hidden', '');
+            } else if (!PLAY_LIVE) {
+              play.setAttribute('hidden', '');
+              note.textContent = 'Or get the free app on your iPhone. The Android app is on its way.';
+            }
           }
         }
       } catch (e) {}
